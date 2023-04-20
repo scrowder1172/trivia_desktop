@@ -25,7 +25,6 @@ class QuizBrain:
         """
         self.current_question = self.question_list[self.question_number]
         self.question_number += 1
-        print(self.current_question)
         q_text = html.unescape(self.current_question.text)
         question = f"Question #{self.question_number}: \n" \
                    f"True or False\n\n" \
