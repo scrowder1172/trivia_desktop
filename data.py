@@ -1,17 +1,24 @@
 import requests
 
 
-api_parameters = {
-    "amount": 10,
-    "type": "boolean"
-}
+class QuestionData:
 
-opentdb_url = "https://opentdb.com/api.php"
-response = requests.get(url=opentdb_url, params=api_parameters)
+    def __init__(self, question_count=10):
+        self.question_count = question_count
+        self.get_question_data()
 
-# raise error if return code is not 200
-response.raise_for_status()
+    def get_question_data(self):
+        api_parameters = {
+            "amount": self.question_count,
+            "type": "boolean"
+        }
 
-data = response.json()
-question_data = data['results']
+        opentdb_url = "https://opentdb.com/api.php"
+        response = requests.get(url=opentdb_url, params=api_parameters)
+
+        # raise error if return code is not 200
+        response.raise_for_status()
+
+        data = response.json()
+        return data['results']
 
