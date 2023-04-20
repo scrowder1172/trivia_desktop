@@ -30,10 +30,10 @@ class QuizUI:
         true_img = PhotoImage(file="images/true.png")
         false_img = PhotoImage(file="images/false.png")
 
-        self.true_btn = Button(image=true_img, highlightthickness=0)
+        self.true_btn = Button(image=true_img, highlightthickness=0, command=self.true_answer)
         self.true_btn.grid(column=0, row=2)
 
-        self.false_btn = Button(image=false_img, highlightthickness=0)
+        self.false_btn = Button(image=false_img, highlightthickness=0, command=self.false_answer)
         self.false_btn.grid(column=1, row=2)
 
         self.get_next_question()
@@ -41,6 +41,10 @@ class QuizUI:
         self.window.mainloop()
 
     def get_next_question(self):
+        """
+        Retrieve next question from QuizBrain
+        :return: None
+        """
         self.canvas.config(bg="white")
         self.score_label.config(text=f"Score: {self.quiz.score}")
         if self.quiz.still_has_questions():
@@ -51,4 +55,32 @@ class QuizUI:
             self.canvas.itemconfig(self.question_text, text=end_of_quiz_message)
             self.true_btn.config(state="disabled")
             self.false_btn.config(state="disabled")
+        return
+
+    def true_answer(self):
+        """
+        Check if true is the right answer
+        :return: None
+        """
+        self.give_feedback(self.quiz.check_answer("True"))
+
+    def false_answer(self):
+        """
+        Check if false is the right answer
+        :return: None
+        """
+        self.give_feedback(self.quiz.check_answer("False"))
+
+    def give_feedback(self, is_right):
+        """
+        Change background if question is right or wrong
+        :param is_right: bool
+        :return: None
+        """
+        if is_right:
+            self.canvas.config(bg="green")
+        else:
+            self.canvas.config(bg="red")
+        self.window.after(1000, self.get_next_question)
+        return
 
