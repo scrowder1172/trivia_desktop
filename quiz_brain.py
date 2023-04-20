@@ -10,6 +10,10 @@ class QuizBrain:
         self.current_question = None
 
     def still_has_questions(self):
+        """
+        Determine if there are still questions
+        :return: bool
+        """
         return self.question_number < len(self.question_list)
 
     def next_question(self):
@@ -28,4 +32,16 @@ class QuizBrain:
                    f"{q_text}"
         return question
 
+    def check_answer(self, user_answer):
+        """
+        Check if user answered correctly
+        :param user_answer: str
+        :return: bool
+        """
+        correct_answer = self.current_question.answer
+        if user_answer.lower() == correct_answer.lower():
+            self.score += 1
+            return True
+        else:
+            return False
 
