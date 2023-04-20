@@ -24,6 +24,15 @@ class QuizUI:
                                                      width=280)
         self.canvas.grid(column=0, row=1, columnspan=2,pady=50)
 
+        true_img = PhotoImage(file="images/true.png")
+        false_img = PhotoImage(file="images/false.png")
+
+        self.true_btn = Button(image=true_img, highlightthickness=0)
+        self.true_btn.grid(column=0, row=2)
+
+        self.false_btn = Button(image=false_img, highlightthickness=0)
+        self.false_btn.grid(column=1, row=2)
+
 
         self.window.mainloop()
 
